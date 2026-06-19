@@ -52,7 +52,7 @@ A native Azure Cosmos DB for NoSQL vector store connector isn't currently availa
 
 ### Python
 
-The [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package is the recommended Python connector. It provides six integrations across LangChain and LangGraph (see the [LangGraph section](#langgraph) for graph-specific components), each with synchronous and asynchronous variants.
+Use the [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package as the Python connector. It provides six integrations across LangChain and LangGraph (see the [LangGraph section](#langgraph) for graph-specific components), each with synchronous and asynchronous variants.
 
 | Functionality | Sync | Async |
 |---|---|---|

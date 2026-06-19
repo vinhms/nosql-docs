@@ -119,7 +119,7 @@ Your keys stay in their current state. The safe key rotation check runs **before
 If you still need to rotate the key, you have two options:
 
 - **Wait until the key isn't used for 12 hours.** Migrate your application to the other key (or to Microsoft Entra ID), then retry the regeneration after the 12-hour window passes.
-- **Force the rotation by skipping the check.** Bypass the usage check and regenerate the key immediately by including the `SkipAccountKeysLastUsageCheck` property set to `true` in the request body. Use this option only when you're certain the key is safe to rotate.
+- **Force the rotation by skipping the check.** Bypass the usage check and regenerate the key immediately by setting `SkipAccountKeysLastUsageCheck` to `true` in the request body. Use this option only when you're certain the key is safe to rotate.
 
 ### Does enabling safe key rotation change my existing keys?
 

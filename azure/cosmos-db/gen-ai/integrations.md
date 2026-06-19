@@ -5,16 +5,17 @@ author: jcodella
 ms.author: jacodel
 ms.service: azure-cosmos-db
 ms.topic: how-to
-ms.date: 10/20/2025
+ms.date: 06/19/2026
 ms.update-cycle: 180-days
 ms.collection:
   - ce-skilling-ai-copilot
+ai-usage: ai-generated
 appliesto:
   - ✅ NoSQL
 ---
 # Azure Cosmos DB integrations for AI applications
 
-Azure Cosmos DB for NoSQL integrates with the most widely used AI and LLM orchestration frameworks, providing a single persistence layer for vector search, chat history, semantic caching, agent state, and long-term memory. This article summarizes the available integrations and points to the official connector for each language.
+Azure Cosmos DB for NoSQL integrates with the most widely used AI and LLM orchestration frameworks. These integrations provide a single persistence layer for vector search, chat history, semantic caching, agent state, and long-term memory. This article summarizes the available integrations and points to the official connector for each language.
 
 All Azure Cosmos DB connectors support both account-key and Microsoft Entra ID (Managed Identity) authentication unless otherwise noted.
 
@@ -22,12 +23,12 @@ All Azure Cosmos DB connectors support both account-key and Microsoft Entra ID (
 
 | Framework | Python | .NET / C# | Java | JavaScript / TypeScript |
 |---|---|---|---|---|
-| Semantic Kernel | ✅ Vector store | ✅ Vector store  | — | — |
-| LangChain | ✅ Vector store, semantic cache, chat history | — | ✅ Embedding store | ✅ Vector store, semantic cache |
-| LangGraph | ✅ Checkpointer, node cache, long-term memory | — | — | — |
-| Agent Framework | ✅ Workflow checkpoint, history provider | ✅ Checkpoint store, chat history | — | — |
-| LlamaIndex | ✅ Vector store, document store, index store, chat store, KV store | — | — | — |
-| Spring AI | — | — | ✅ Vector store | — |
+| Semantic Kernel | ✅ Vector store | ✅ Vector store  | - | - |
+| LangChain | ✅ Vector store, semantic cache, chat history | - | ✅ Embedding store | ✅ Vector store, semantic cache |
+| LangGraph | ✅ Checkpointer, node cache, long-term memory | - | - | - |
+| Agent Framework | ✅ Workflow checkpoint, history provider | ✅ Checkpoint store, chat history | - | - |
+| LlamaIndex | ✅ Vector store, document store, index store, chat store, KV store | - | - | - |
+| Spring AI | - | - | ✅ Vector store | - |
 
 ## Semantic Kernel
 
@@ -51,7 +52,7 @@ A native Azure Cosmos DB for NoSQL vector store connector isn't currently availa
 
 ### Python
 
-The [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package is the recommended Python connector. It provides six integrations across LangChain and LangGraph (see the [LangGraph section](#langgraph) below for graph-specific components), each with synchronous and asynchronous variants.
+Use the [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package as the Python connector. It provides six integrations across LangChain and LangGraph (see the [LangGraph section](#langgraph) for graph-specific components), each with synchronous and asynchronous variants.
 
 | Functionality | Sync | Async |
 |---|---|---|
@@ -75,7 +76,7 @@ LangChain4j provides an Azure Cosmos DB for NoSQL embedding store. See the [Lang
 
 ### Python
 
-LangGraph integration ships in the same [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package as the LangChain integration above.
+LangGraph integration ships in the same [`langchain-azure-cosmosdb`](https://pypi.org/project/langchain-azure-cosmosdb/) package as the LangChain integration.
 
 | Functionality | Sync | Async |
 |---|---|---|
@@ -93,20 +94,20 @@ The long-term memory store optionally uses vector search for semantic recall.
 
 The [Azure Cosmos DB package for Agent Framework Python](https://github.com/microsoft/agent-framework/tree/44381c051b3915f8b60a7972641e06c546f5df9d/python/packages/azure-cosmos) provides:
 
-- `CosmosDBWorkflowCheckpointStorage` — workflow checkpoint storage
-- `CosmosDBHistoryProvider` — chat history provider
+- `CosmosDBWorkflowCheckpointStorage` - workflow checkpoint storage
+- `CosmosDBHistoryProvider` - chat history provider
 - Database and container setup utilities
 
 ### .NET / C#
 
 The [`Microsoft.Agents.AI.CosmosNoSql`](https://github.com/microsoft/agent-framework/tree/main/dotnet/src/Microsoft.Agents.AI.CosmosNoSql) package provides:
 
-- `CheckpointStore` — workflow checkpoint storage
-- `ChatHistoryProvider` — chat history management
-- `WorkflowExtensions` and `ChatExtensions` — DI and integration helpers
+- `CheckpointStore` - workflow checkpoint storage
+- `ChatHistoryProvider` - chat history management
+- `WorkflowExtensions` and `ChatExtensions` - DI and integration helpers
 
->[!NOTE]
-> **AutoGen users:** AutoGen has been merged into Agent Framework. New projects should target Agent Framework directly. The legacy [AutoGen 0.2 Cosmos DB notes](https://microsoft.github.io/autogen/0.2/docs/ecosystem/azure_cosmos_db/) remain available for reference.
+> [!NOTE]
+> **AutoGen users:** AutoGen is now part of the Agent Framework. New projects should target Agent Framework directly. The legacy [AutoGen 0.2 Azure Cosmos DB notes](https://microsoft.github.io/autogen/0.2/docs/ecosystem/azure_cosmos_db/) remain available for reference.
 
 ## LlamaIndex
 
@@ -124,7 +125,7 @@ LlamaIndex provides four Azure Cosmos DB for NoSQL integrations across its stora
 | Chat store | [`AzureCosmosNoSqlChatStore`](https://developers.llamaindex.ai/python/framework-api-reference/storage/chat_store/azurecosmosnosql/) | `llama-index-storage-chat-store-azurecosmosnosql` |
 | Key-value store | [`AzureCosmosNoSqlKVStore`](https://developers.llamaindex.ai/python/framework-api-reference/storage/kvstore/) | `llama-index-storage-kvstore-azurecosmosnosql` |
 
-The chat store, document store, index store, and KV store all support authentication via connection string, account endpoint + key, or EntraID (`DefaultAzureCredential`). See the [LlamaIndex vector store example](https://developers.llamaindex.ai/python/examples/vector_stores/azurecosmosdbnosqldemo/) for an end-to-end RAG walkthrough.
+The chat store, document store, index store, and key-value store all support authentication through connection string, account endpoint and key, or Microsoft Entra ID (for example, `AzureCliCredential`). For an end-to-end RAG walkthrough, see the [LlamaIndex vector store example](https://developers.llamaindex.ai/python/examples/vector_stores/azurecosmosdbnosqldemo/).
 
 A native Azure Cosmos DB for NoSQL integration isn't currently available in LlamaIndex.TS, LlamaIndex.NET, or LlamaIndex Java.
 

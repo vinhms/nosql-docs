@@ -125,7 +125,7 @@ LlamaIndex provides four Azure Cosmos DB for NoSQL integrations across its stora
 | Chat store | [`AzureCosmosNoSqlChatStore`](https://developers.llamaindex.ai/python/framework-api-reference/storage/chat_store/azurecosmosnosql/) | `llama-index-storage-chat-store-azurecosmosnosql` |
 | Key-value store | [`AzureCosmosNoSqlKVStore`](https://developers.llamaindex.ai/python/framework-api-reference/storage/kvstore/) | `llama-index-storage-kvstore-azurecosmosnosql` |
 
-The chat store, document store, index store, and KV store all support authentication via connection string, account endpoint + key, or Microsoft Entra ID (ex: `AzureCliCredential`). See the [LlamaIndex vector store example](https://developers.llamaindex.ai/python/examples/vector_stores/azurecosmosdbnosqldemo/) for an end-to-end RAG walkthrough.
+The chat store, document store, index store, and key-value store all support authentication through connection string, account endpoint and key, or Microsoft Entra ID (for example, `AzureCliCredential`). For an end-to-end RAG walkthrough, see the [LlamaIndex vector store example](https://developers.llamaindex.ai/python/examples/vector_stores/azurecosmosdbnosqldemo/).
 
 A native Azure Cosmos DB for NoSQL integration isn't currently available in LlamaIndex.TS, LlamaIndex.NET, or LlamaIndex Java.
 

@@ -6,7 +6,7 @@ ms.author: sidandrews
 ms.service: azure-cosmos-db
 ms.subservice: nosql
 ms.topic: how-to
-ms.date: 05/15/2026
+ms.date: 06/19/2026
 ms.custom:
   - sfi-image-nochange
   - sfi-ropc-nochange
@@ -38,7 +38,7 @@ Azure Cosmos DB for NoSQL allows you to rotate primary and secondary keys to mai
 > [!IMPORTANT]
 > The safe key rotation feature is in public preview. This feature is provided without a service-level agreement, and it isn't recommended for production workloads. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
-Azure Cosmos DB now offers a feature to ensure safe key rotation or disabling local authentication by using account key usage metadata. This feature provides extra visibility into when an account key was last used, so your team can make informed decisions before rotating keys or migrating to Entra ID.
+Azure Cosmos DB now offers a feature to ensure safe key rotation or disabling local authentication by using account key usage metadata. This feature provides extra visibility into when an account key was last used, so your team can make informed decisions before rotating keys or migrating to Microsoft Entra ID.
 
 ![Screenshot showing safe key rotation in an Azure Cosmos DB account.](media/how-to-rotate-keys/safe-key-rotation.png)
 
@@ -48,10 +48,11 @@ Azure Cosmos DB now offers a feature to ensure safe key rotation or disabling lo
 - **Prevents Outages or disruption to your applications**: Avoids accidental rotation of actively used keys.
 - **Improve Security Hygiene**: Encourages safe and intentional key rotation.
 
-This is especially valuable for:
-- Customers currently using keys but planning to migrate fully to Entra ID.
-- Infrequently used keys: Monthly or yearly jobs that still depend on keys.
-- Shared Keys across teams: Where visibility is often limited.
+This feature is especially valuable for:
+
+- Customers currently using keys but planning to migrate fully to Microsoft Entra ID
+- Infrequently used keys: Monthly or yearly jobs that still depend on keys
+- Shared keys across teams: Where visibility is often limited
 
 ### How does it work?
 
@@ -76,6 +77,7 @@ The safe key rotation check runs **before** any key is regenerated or local auth
     >      --name <account-name> \
     >      --query capabilities
     > ```
+
 If the output shows `EnableAccountKeysLastUsageCheckInDisableLocalAuth` and `EnableKeyCheckBeforeRegenerationPreview`, the feature is enabled.
 
 ## Rotate keys when using the primary key
@@ -112,12 +114,12 @@ If your application is currently using the secondary key, follow these steps to 
 
 ### What happens if key rotation fails after I enable safe key rotation?
 
-Your keys stay in their current state. The safe key rotation check runs **before** any key regeneration. If the check finds that a key was used within the last 12 hours, it blocks the regeneration request and returns an error. No key changes, so your application keeps working normally with the existing keys.
+Your keys stay in their current state. The safe key rotation check runs **before** any key regeneration. If the check finds that a key was used within the last 12 hours, it blocks the regeneration request. An error is returned to indicate the key is still in use. No key changes, so your application keeps working normally with the existing keys.
 
 If you still need to rotate the key, you have two options:
 
-- **Wait until the key hasn't been used for 12 hours.** Migrate your application to the other key (or to Entra ID), then retry the regeneration after the 12-hour window passes.
-- **Force the rotation by skipping the check.** Include the `SkipAccountKeysLastUsageCheck` property set to `true` in the request body to bypass the usage check and regenerate the key immediately. Use this option only when you're certain the key is safe to rotate.
+- **Wait until the key isn't used for 12 hours.** Migrate your application to the other key (or to Microsoft Entra ID), then retry the regeneration after the 12-hour window passes.
+- **Force the rotation by skipping the check.** Bypass the usage check and regenerate the key immediately by setting `SkipAccountKeysLastUsageCheck` to `true` in the request body. Use this option only when you're certain the key is safe to rotate.
 
 ### Does enabling safe key rotation change my existing keys?
 

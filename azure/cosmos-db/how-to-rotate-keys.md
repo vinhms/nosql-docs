@@ -52,7 +52,7 @@ This feature is especially valuable for:
 
 - Customers currently using keys but planning to migrate fully to Microsoft Entra ID
 - Infrequently used keys: Monthly or yearly jobs that still depend on keys
-- Shared Keys across teams: Where visibility is often limited
+- Shared keys across teams: Where visibility is often limited
 
 ### How does it work?
 

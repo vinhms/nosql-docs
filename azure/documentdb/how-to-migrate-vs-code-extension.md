@@ -280,7 +280,7 @@ In this topology, the VPN/ExpressRoute gateway is in a dedicated hub virtual net
 
 > [!IMPORTANT]
 > When DMS peers with a hub virtual network, complete the following requirements before starting the migration job:
->
+- **Disable network policies on the private endpoint subnet.** Subnet-level private endpoint network policies can block traffic originating from the DMS virtual network. Disable them on the subnet that hosts the target Azure DocumentDB private endpoint.
 > - **Disable network policies on the private endpoint subnet.** Subnet-level private endpoint network policies can block traffic originating from the DMS virtual network. Disable them on the subnet that hosts the target Azure DocumentDB private endpoint:
 >
 >    ```azurecli

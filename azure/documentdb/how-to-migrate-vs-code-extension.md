@@ -262,6 +262,20 @@ Use private connectivity when:
 - Your organization requires all traffic to flow through private networks.
 - You need to avoid public internet exposure.
 
+
+> [!IMPORTANT]
+> Complete the following requirements before starting the migration job:
+> - **Disable network policies on the private endpoint subnet.** Subnet-level private endpoint network policies can block traffic originating from the DMS virtual network. Disable them on the subnet that hosts the target Azure DocumentDB private endpoint:
+>    ```azurecli
+>    az network vnet subnet update \
+>      --subscription "<SUBSCRIPTION>" -g "<TARGET_RG>" \
+>      --vnet-name "<TARGET_VNET>" -n "<PRIVATE_ENDPOINT_SUBNET>" \
+>      --disable-private-endpoint-network-policies true
+>    ```
+> - **Grant the DMS principal read access on the hub's virtual network gateway.** When DMS peers with the hub, it validates the gateway configuration to use `useRemoteGateways`. Assign the **Reader** role on the VPN or ExpressRoute gateway resource to the DMS service principal. Without this access, the peering setup step in the wizard fails.
+> - **Allowlist the DMS CIDR end-to-end.** Add the DMS CIDR shown in the migration wizard to your on-premises firewalls, NSGs in the path, and any ExpressRoute route filters. If any device in the path doesn't recognize the range, return traffic from the source is dropped.
+> - **Don't rely on custom on-premises DNS for the peered network.** On-premises DNS servers can't resolve Azure private DNS zone records for the DMS-peered hub. Use an IP-based connection string for the source in the migration job to skip DNS.
+
 #### From other cloud providers or on-premises
 
 Use your preferred VPN tools to set up network connectivity between Azure and your source environment in another cloud or on-premises. The following topologies are supported depending on your network architecture.
@@ -278,18 +292,6 @@ In this topology, the VPN/ExpressRoute gateway is in a dedicated hub virtual net
 
 :::image type="content" source="media/how-to-migrate-vs-code-extension/private-endpoint-hub-direct.png" alt-text="Diagram showing hub-direct topology for private connectivity from on-premises or other cloud." lightbox="media/how-to-migrate-vs-code-extension/private-endpoint-hub-direct.png" :::
 
-> [!IMPORTANT]
-> When DMS peers with a hub virtual network, complete the following requirements before starting the migration job:
-> - **Disable network policies on the private endpoint subnet.** Subnet-level private endpoint network policies can block traffic originating from the DMS virtual network. Disable them on the subnet that hosts the target Azure DocumentDB private endpoint:
->    ```azurecli
->    az network vnet subnet update \
->      --subscription "<SUBSCRIPTION>" -g "<TARGET_RG>" \
->      --vnet-name "<TARGET_VNET>" -n "<PRIVATE_ENDPOINT_SUBNET>" \
->      --disable-private-endpoint-network-policies true
->    ```
-> - **Grant the DMS principal read access on the hub's virtual network gateway.** When DMS peers with the hub, it validates the gateway configuration to use `useRemoteGateways`. Assign the **Reader** role on the VPN or ExpressRoute gateway resource to the DMS service principal. Without this access, the peering setup step in the wizard fails.
-> - **Allowlist the DMS CIDR end-to-end.** Add the DMS CIDR shown in the migration wizard to your on-premises firewalls, NSGs in the path, and any ExpressRoute route filters. If any device in the path doesn't recognize the range, return traffic from the source is dropped.
-> - **Don't rely on custom on-premises DNS for the peered network.** On-premises DNS servers can't resolve Azure private DNS zone records for the DMS-peered hub. Use an IP-based connection string for the source in the migration job to skip DNS.
 
 ##### Hub-spoke with TCP proxy
 

@@ -265,6 +265,7 @@ Use private connectivity when:
 
 > [!IMPORTANT]
 > A single virtual network can support only one active migration job at a time when connectivity mode is private. To run multiple concurrent jobs, use different virtual networks for each job.
+>
 > Complete the following requirements before starting the migration job:
 > - **Disable network policies on the private endpoint subnet.** Subnet-level private endpoint network policies can block traffic originating from the DMS virtual network. Disable them on the subnet that hosts the target Azure DocumentDB private endpoint:
 >    ```azurecli

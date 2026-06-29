@@ -64,7 +64,7 @@ Use the Azure portal to enable, disable, and configure Semantic Reranker for a s
 
 :::image type="content" source="media/semantic-reranker/portal-configure.png" lightbox="media/semantic-reranker/portal-configure.png" alt-text="Screenshot placeholder showing Semantic Reranker configuration in the Azure portal.":::
 
-6. Role assignment changes can take a few minutes to propagate. Once the changes take effect, you can start using Semantic Reranker immediately.
+1. Role assignment changes can take a few minutes to propagate. Once the changes take effect, you can start using Semantic Reranker immediately.
 
 ## RBAC roles for Semantic Reranker
 

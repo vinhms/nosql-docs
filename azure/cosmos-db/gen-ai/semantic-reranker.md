@@ -58,7 +58,7 @@ Use the Azure portal to enable, disable, and configure Semantic Reranker for a s
 
 :::image type="content" source="media/semantic-reranker/portal-disabled.png" lightbox="media/semantic-reranker/portal-disabled.png" alt-text="Screenshot placeholder showing where to enable Semantic Reranker in the Azure portal.":::
 
-5. Grant permissions to all users who need access to the Azure Cosmos DB account. This creates the required role assignment for using Semantic Reranker.
+1. Grant permissions to all users who need access to the Azure Cosmos DB account. This action creates the required role assignment for using Semantic Reranker.
 
    If you want to grant access to specific users, use **Access Control (IAM)** on the Azure Cosmos DB account and assign them the **Semantic Reranker User** role.
 

@@ -52,7 +52,7 @@ When you call Semantic Reranker, the response can contain multiple fields, inclu
 Use the Azure portal to enable, disable, and configure Semantic Reranker for a specific Azure Cosmos DB resource.
 
 1. Semantic Reranker is in preview. You might need to run `az provider register -n Microsoft.InferenceService` by using the [Azure CLI](/cli/azure/get-started-with-azure-cli) before enabling Semantic Reranker in the Azure portal.
-2. Go to your Azure Cosmos DB account in the Azure portal.
+1. Go to your Azure Cosmos DB account in the Azure portal.
 3. In the resource menu, find the Semantic Reranker setup experience.
 4. Review the preview information and enable the feature for your resource. You can return to this experience later to disable Semantic Reranker for the same resource.
 

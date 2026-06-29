@@ -481,7 +481,7 @@ public class SemanticRerankSample {
 ## Limitations
 
 - Semantic Reranker supports a maximum of 50 documents per rerank call.
-- A single context-document paisupports up to 2,048 tokens.
+- A single context-document pair supports up to 2,048 tokens.
 
 ## Pricing
 

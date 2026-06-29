@@ -49,24 +49,22 @@ When you call Semantic Reranker, the response can contain multiple fields, inclu
 
 ## Set up Semantic Reranker 
 
-> [!IMPORTANT]
->  Semantic Reranker is in preview. You might need to run `az provider register -n Microsoft.InferenceService` by using the [Azure CLI](/cli/azure/get-started-with-azure-cli) before enabling Semantic Reranker in the Azure portal.
-
 Use the Azure portal to enable, disable, and configure Semantic Reranker for a specific Azure Cosmos DB resource.
 
-1. Go to your Azure Cosmos DB account in the Azure portal.
-2. In the resource menu, find the Semantic Reranker setup experience.
-3. Review the preview information and enable the feature for your resource. You can return to this experience later to disable Semantic Reranker for the same resource.
+1. Semantic Reranker is in preview. You might need to run `az provider register -n Microsoft.InferenceService` by using the [Azure CLI](/cli/azure/get-started-with-azure-cli) before enabling Semantic Reranker in the Azure portal.
+2. Go to your Azure Cosmos DB account in the Azure portal.
+3. In the resource menu, find the Semantic Reranker setup experience.
+4. Review the preview information and enable the feature for your resource. You can return to this experience later to disable Semantic Reranker for the same resource.
 
 :::image type="content" source="media/semantic-reranker/portal-disabled.png" lightbox="media/semantic-reranker/portal-disabled.png" alt-text="Screenshot placeholder showing where to enable Semantic Reranker in the Azure portal.":::
 
-4. Configure the reranker settings for your account and workload. You can assign roles in this Semantic Reranker portal experience, or assign roles from **Access control (IAM)** for the Azure Cosmos DB resource.
+5. Grant permissions to all users who need access to the Azure Cosmos DB account. This creates the required role assignment for using Semantic Reranker.
+
+   If you want to grant access to specific users, use **Access Control (IAM)** on the Azure Cosmos DB account and assign them the **Semantic Reranker User** role.
 
 :::image type="content" source="media/semantic-reranker/portal-configure.png" lightbox="media/semantic-reranker/portal-configure.png" alt-text="Screenshot placeholder showing Semantic Reranker configuration in the Azure portal.":::
 
-5. Review the configuration, then save your changes.
-
-Next, you want to assign Semantic Reranker roles to the identities that configure the feature or call it at runtime. You can assign roles to a Microsoft Entra user, service principal, user-assigned managed identity, or system-assigned managed identity.
+6. Role assignment changes can take a few minutes to propagate. Once the changes have taken effect, you can start using Semantic Reranker immediately.
 
 ## RBAC roles for Semantic Reranker
 

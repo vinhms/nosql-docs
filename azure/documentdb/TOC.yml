@@ -188,22 +188,24 @@
       items:
         - name: Indexing overview
           href: indexing.md
-        - name: Background indexing
-          href: background-indexing.md
         - name: Indexing best practices
           href: how-to-create-indexes.md
         - name: Indexing scenarios
           href: how-to-index.md
+        - name: Background indexing
+          href: background-indexing.md
         - name: Wildcard indexes
           href: how-to-create-wildcard-indexes.md
         - name: Text search indexes
           href: how-to-create-text-index.md
         - name: Migrate to ordered indexes
           href: how-to-migrate-ordered-indexes.md
-        - name: Tune query performance with Index Advisor
-          href: index-advisor.md
         - name: Geospatial queries
           href: geospatial-support.md
+        - name: Read query explain output
+          href: how-to-read-explain-output.md
+        - name: Tune query performance with Index Advisor
+          href: index-advisor.md
     - name: Transactions
       items:
         - name: Create transactions

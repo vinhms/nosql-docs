@@ -241,7 +241,7 @@ WHERE FullTextContains(c.text, {"term": "red", "distance":1}) AND FullTextContai
 
 #### Faceting
 
-Faceting allows you to provide aggregated summaries of search results, making it easier for users to filter and explore matching documents by common attributes
+Faceting allows you to provide aggregated summaries of search results, making it easier for users to filter and explore matching documents by common attributes.
 
 Azure Cosmos DB doesn't provide a dedicated faceting operator. Instead, you can achieve faceting functionality by combining full-text search with aggregation queries such as `GROUP BY`, `COUNT`, and `COUNTIF`.
 

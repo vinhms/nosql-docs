@@ -1,5 +1,5 @@
 ---
-title: Integrated Embeddings in Azure Cosmos DB for NoSQL (Preview)
+title: Integrated Embeddings in Azure Cosmos DB (Preview)
 description: Automatically generate and maintain vector embeddings for your data in Azure Cosmos DB.
 author: abhirockzz
 ms.author: guabhishek

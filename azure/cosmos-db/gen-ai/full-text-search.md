@@ -239,6 +239,50 @@ FROM c
 WHERE FullTextContains(c.text, {"term": "red", "distance":1}) AND FullTextContains(c.text, {"term": "bycycle", "distance":2})
 ```
 
+#### Faceting
+
+Faceting allows you to provide aggregated summaries of search results, making it easier for users to filter and explore matching documents by common attributes.
+
+Azure Cosmos DB doesn't provide a dedicated faceting operator. Instead, you can achieve faceting functionality by combining full-text search with aggregation queries such as `GROUP BY`, `COUNT`, and `COUNTIF`.
+
+For example, the following query returns the number of matching documents in each category for documents that contain the term *shoes*:
+
+```sql
+SELECT
+    c.category AS facetKey,
+    COUNT(1) AS facetCount
+FROM c
+WHERE FullTextContains(c.title, "shoes")
+GROUP BY c.category
+```
+
+You can also generate facets from numeric values. For example, the following query returns the number of matching documents grouped by rating:
+
+```sql
+SELECT
+    FLOOR(c.rating) AS facetKey,
+    COUNT(1) AS facetCount
+FROM c
+WHERE FullTextContains(c.title, "shoes")
+    OR FullTextContains(c.description, "shoes")
+    OR FullTextContains(c.brand, "shoes")
+GROUP BY FLOOR(c.rating)
+```
+
+Some facets are based on ranges rather than grouping. For example, a price-range facet can be implemented by using aggregate functions:
+
+```sql
+SELECT
+    COUNTIF(c.price < 25) AS under25,
+    COUNTIF(c.price >= 25 AND c.price < 50) AS r25to50,
+    COUNTIF(c.price >= 50 AND c.price < 100) AS r50to100,
+    COUNTIF(c.price >= 100) AS over100
+FROM c
+WHERE FullTextContains(c.title, "shoes")
+```
+
+Use these patterns to generate facet summaries alongside full-text search results, so users can refine and explore search results more effectively.
+
 ## Related content
 
 - [`FullTextContains` system function](/cosmos-db/query/fulltextcontains)

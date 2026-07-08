@@ -281,7 +281,7 @@ FROM c
 WHERE FullTextContains(c.title, "shoes")
 ```
 
-Use these patterns to generate facet summaries alongside full-text search results, enabling users to refine and explore search results more effectively.
+Use these patterns to generate facet summaries alongside full-text search results, so users can refine and explore search results more effectively.
 
 ## Related content
 

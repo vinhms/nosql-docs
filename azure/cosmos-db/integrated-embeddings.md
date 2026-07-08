@@ -22,7 +22,7 @@ ai-usage: ai-assisted
 [!INCLUDE[Preview](includes/notice-preview.md)]
 
 > [!IMPORTANT]
-> As Integrated Embeddings is gradually rolling out across Azure regions, availability might vary, and the feature might not yet be accessible in your region.
+> As Integrated Embeddings rolls out gradually across Azure regions, availability might vary. The feature might not yet be accessible in your region.
 
 ## What are Integrated Embeddings?
 

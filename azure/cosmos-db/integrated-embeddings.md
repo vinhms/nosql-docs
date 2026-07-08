@@ -1,5 +1,5 @@
 ---
-title: Integrated Embeddings in Azure Cosmos DB
+title: Integrated Embeddings in Azure Cosmos DB (Preview)
 description: Automatically generate and maintain vector embeddings for your data in Azure Cosmos DB.
 author: abhirockzz
 ms.author: guabhishek
@@ -22,7 +22,7 @@ ai-usage: ai-assisted
 [!INCLUDE[Preview](includes/notice-preview.md)]
 
 > [!IMPORTANT]
-> As Integrated Embeddings is gradually rolling out across Azure regions, availability may vary, and the feature might not yet be accessible in your region.
+> As Integrated Embeddings rolls out gradually across Azure regions, availability might vary. The feature might not yet be accessible in your region.
 
 ## What are Integrated Embeddings?
 
@@ -40,7 +40,15 @@ Before you use Integrated Embeddings, you need the following resources and confi
 - An existing Azure Cosmos DB for NoSQL account with [vector search enabled](vector-search.md#enable-the-vector-indexing-and-search-feature).
 - [All versions and deletes change feed mode](change-feed-modes.md?tabs=all-versions-and-deletes#all-versions-and-deletes-change-feed-mode) enabled on the account.
 - A Microsoft Foundry resource with a deployed [Azure OpenAI embedding model](/azure/foundry-classic/foundry-models/concepts/models-sold-directly-by-azure?tabs=americas%2Caz-global-standard%2Cglobal-standard&pivots=azure-openai#embeddings).
-- A [managed identity](how-to-setup-managed-identity.md) (system-assigned or user-assigned) on the Azure Cosmos DB account, set as the account's [default identity](/cli/azure/cosmosdb#az-cosmosdb-update-optional-parameters). Azure Cosmos DB uses this identity to authenticate to the Microsoft Foundry resource on your behalf.
+- A [managed identity](how-to-setup-managed-identity.md) (system-assigned or user-assigned) enabled on the Azure Cosmos DB account. Azure Cosmos DB uses this identity to authenticate to the Microsoft Foundry resource on your behalf. After you enable the identity, set it as the account's default identity with the [`az cosmosdb update`](/cli/azure/cosmosdb#az-cosmosdb-update) command:
+
+  ```azurecli
+  # System-assigned identity
+  az cosmosdb update --resource-group <resource-group> --name <account-name> --default-identity "SystemAssignedIdentity"
+
+  # User-assigned identity
+  az cosmosdb update --resource-group <resource-group> --name <account-name> --default-identity "UserAssignedIdentity=<user-assigned-identity-resource-id>"
+  ```
 - A [role assignment](/azure/foundry-classic/openai/how-to/role-based-access-control#add-role-assignment-to-an-azure-openai-resource) on the Microsoft Foundry resource that grants the Azure Cosmos DB managed identity the [Cognitive Services OpenAI User](/azure/foundry-classic/openai/how-to/role-based-access-control#azure-openai-roles) role, so it can make inference API calls to the embedding model.
 
 ## Enable Integrated Embeddings
@@ -205,8 +213,7 @@ The following example creates a database and a new container, configures the vec
 
 `dimensions` is set to `1536`, which matches `text-embedding-3-small` and `text-embedding-ada-002`. Use `3072` for `text-embedding-3-large`.
 
-> [!NOTE]
-> This example uses a `quantizedFlat` vector index. To learn about other supported vector index types, see [Vector Indexing Policies](vector-search.md#vector-indexing-policies).
+This example uses a `quantizedFlat` vector index. To learn about other supported vector index types, see [Vector Indexing Policies](vector-search.md#vector-indexing-policies).
 
 #### [Python](#tab/python)
 
@@ -580,8 +587,7 @@ Save the following script as `integrated_embeddings_quickstart_mgmt_sdk.py`. The
 
 The script sets `dimensions` to `1536`, which matches `text-embedding-3-small` and `text-embedding-ada-002`. Use `3072` for `text-embedding-3-large`.
 
-> [!NOTE]
-> This example uses a `quantizedFlat` vector index. To learn about other supported vector index types, see [Vector Indexing Policies](vector-search.md#vector-indexing-policies).
+This example uses a `quantizedFlat` vector index. To learn about other supported vector index types, see [Vector Indexing Policies](vector-search.md#vector-indexing-policies).
 
 ```python
 import json

@@ -5,7 +5,7 @@ author: kanshiG
 ms.author: govindk
 ms.service: azure-cosmos-db
 ms.topic: concept-article
-ms.date: 03/21/2024
+ms.date: 07/09/2026
 appliesto:
   - ✅ NoSQL
   - ✅ MongoDB
@@ -23,10 +23,10 @@ The database account's resource model is updated with a few extra properties to 
 
 ### BackupPolicy
 
-A new property in the account level backup policy named ``Type`` under the ``backuppolicy`` parameter enables continuous backup and point-in-time restore. This mode is referred to as **continuous backup**. You can set this mode when creating the account or while [migrating an account from periodic to continuous mode](migrate-continuous-backup.md). After continuous mode is enabled, all the containers and databases created within this account will have point-in-time restore and continuous backup enabled by default. The continuous backup tier can be set to ``Continuous7Days`` or ``Continuous30Days``. By default, if no tier is provided, ``Continuous30Days`` is applied on the account.
+A new property in the account level backup policy named ``Type`` under the ``backuppolicy`` parameter enables continuous backup and point-in-time restore. This mode is referred to as **continuous backup**. You can set this mode when creating the account or while [migrating an account from periodic to continuous mode](migrate-continuous-backup.md). After continuous mode is enabled, all the containers and databases created within this account will have point-in-time restore and continuous backup enabled by default. The continuous backup tier can be set to ``Continuous7Days``, ``Continuous30Days``, or ``Continuous35Days``. By default, if no tier is provided, ``Continuous30Days`` is applied on the account.
 
 > [!NOTE]
-> Currently the point-in-time restore feature is available for Azure Cosmos DB for NoSQL, API for MongoDB, Table and Gremlin accounts. After you create an account with continuous mode you can't switch it to a periodic mode. The ``Continuous7Days`` tier is in preview.
+> Currently the point-in-time restore feature is available for Azure Cosmos DB for NoSQL, API for MongoDB, Table and Gremlin accounts. After you create an account with continuous mode you can't switch it to a periodic mode. The ``Continuous7Days`` and ``Continuous35Days`` tiers are in preview.
 
 ### CreateMode
 
@@ -128,7 +128,7 @@ This resource contains a database account instance that can be restored. The dat
 | ``restorableLocations: regionalDatabaseAccountInstanceId`` | The GUID of the regional account. |
 | ``restorableLocations: creationTime`` | The time in UTC when the regional account was created r migrated.|
 | ``restorableLocations: deletionTime`` | The time in UTC when the regional account was deleted. This value is empty if the regional account is live.|
-| ``OldestRestorableTimeStamp`` | The earliest time in UTC to which restore can be performed. For the 30 day tier, this time can be maximum 30 days from now, for the seven days tier, this time can be up to seven days from now.  |
+| ``OldestRestorableTimeStamp`` | The earliest time in UTC to which restore can be performed. For the 35 day tier, this time can be maximum 35 days from now, for the 30 day tier, this time can be maximum 30 days from now, for the seven days tier, this time can be up to seven days from now.  |
 
 To get a list of all restorable accounts, see [Restorable Database Accounts - list](/rest/api/cosmos-db-resource-provider/2021-04-01-preview/restorable-database-accounts/list) or [Restorable Database Accounts- list by location](/rest/api/cosmos-db-resource-provider/2021-04-01-preview/restorable-database-accounts/list-by-location) articles.
 

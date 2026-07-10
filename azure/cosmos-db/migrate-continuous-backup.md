@@ -5,7 +5,7 @@ author: kanshiG
 ms.author: govindk
 ms.service: azure-cosmos-db
 ms.topic: how-to
-ms.date: 08/20/2025
+ms.date: 07/09/2026
 ms.custom:
   - devx-track-azurecli
   - sfi-image-nochange
@@ -23,7 +23,7 @@ Azure Cosmos DB accounts with periodic mode backup policy can be migrated to con
 Key reasons to migrate to continuous mode:
 
 * Restore data yourself using Azure portal, CLI, or PowerShell.
-* Restore to a specific second within the last 30-day or 7-day window.
+* Restore to a specific second within the last 35-day, 30-day, or 7-day window.
 * Make sure backups are consistent across shards or partition key ranges.
 * Restore a container, database, or the full account after deletion or changes.
 * Select events on the container, database, or account and choose when to start the restore.
@@ -39,7 +39,7 @@ Key reasons to migrate to continuous mode:
 > If the account uses [customer-managed keys](./how-to-setup-cmk.md), declare a managed identity (system-assigned or user-assigned) in the Key Vault access policy and set it as the default identity on the account.
 
 > [!IMPORTANT]
-> After you migrate your account to continuous backup mode, the cost can change compared to periodic backup mode. The choice between 30 days and seven days also affects backup cost. For details, see [continuous backup mode pricing](continuous-backup-restore-introduction.md#continuous-backup-pricing).
+> After you migrate your account to continuous backup mode, the cost can change compared to periodic backup mode. The tier you choose (35 days, 30 days, or seven days) also affects backup cost. For details, see [continuous backup mode pricing](continuous-backup-restore-introduction.md#continuous-backup-pricing).
 
 ## Prerequisites
 
@@ -241,11 +241,11 @@ Not available
 
 ## Change Continuous Mode tiers
 
-You can switch between ``Continuous30Days`` and ``Continous7Days`` in Azure PowerShell, Azure CLI, or the Azure portal.
+You can switch among ``Continuous7Days``, ``Continuous30Days``, and ``Continuous35Days`` in Azure CLI or the Azure portal. In Azure PowerShell, you can switch between ``Continuous7Days`` and ``Continuous30Days``; PowerShell support for ``Continuous35Days`` is coming soon.
 
 ### [Azure CLI](#tab/azure-cli)
 
-The Following Azure CLI command illustrates switching an existing account to ``Continous7Days``:
+The following Azure CLI command illustrates switching an existing account to ``Continuous7Days``:
 
 ```azurecli-interactive
 az cosmosdb update \
@@ -255,15 +255,26 @@ az cosmosdb update \
     --continuous-tier "Continuous7Days"
 ```
 
+To switch to the ``Continuous35Days`` tier (in preview), install the ``cosmosdb-preview`` Azure CLI extension (version 1.7.0 or later) and set ``--continuous-tier`` to ``Continuous35Days``:
+
+```azurecli-interactive
+az cosmosdb update \
+    --resource-group "<resource-group-name>" \
+    --name "<account-name>" \
+    --backup-policy-type "Continuous" \
+    --continuous-tier "Continuous35Days"
+```
+
 ### [Azure portal](#tab/azure-portal)
 
-In the portal for the given Azure Cosmos DB account, choose **Point in Time Restore** pane, select on change link next to Backup policy mode to show you the option of Continuous (30 days) or  Continuous (7 days). Choose the required target and select on **Save**.
+In the portal for the given Azure Cosmos DB account, choose **Point in Time Restore** pane, select on change link next to Backup policy mode to show you the option of Continuous (35 days), Continuous (30 days), or Continuous (7 days). Choose the required target and select on **Save**.
 
+<!-- TODO: Refresh this screenshot to include the new Continuous (35 days) option. -->
 :::image type="content" source="./media/migrate-continuous-backup/migrate-continuous-mode-tiers.png" lightbox="./media/migrate-continuous-backup/migrate-continuous-mode-tiers.png" alt-text="Screenshot of the dialog to select a tier of continuous backup mode.":::
 
 ### [Azure PowerShell](#tab/azure-powershell)
 
-The following Azure PowerShell command illustrates switching an existing account to ``Continous7Days``:
+The following Azure PowerShell command illustrates switching an existing account to ``Continuous7Days``:
 
 ```azurepowershell-interactive
 $parameters = @{
@@ -275,12 +286,15 @@ $parameters = @{
 Update-AzCosmosDBAccount @parameters
 ```
 
+> [!NOTE]
+> PowerShell support for switching to the ``Continuous35Days`` tier is coming soon. To switch to ``Continuous35Days`` now, use the Azure CLI or the Azure portal.
+
 ---
 
 You can also use an ARM template in a method similar to using the Azure CLI and Azure PowerShell.
 
 > [!NOTE]
-> When you switch from the 30-day to the 7-day tier, you immediately lose the ability to restore data older than seven days. When you switch from the 7-day to the 30-day tier, you can only restore data from the last seven days until new backups accumulate. You can check the earliest available restore time using Azure PowerShell or Azure CLI. Any price changes from switching tiers take effect immediately.
+> When you switch to a shorter retention window (for example, from the 35-day or 30-day tier to the 7-day tier), you immediately lose the ability to restore data older than the new window. When you switch to a longer retention window (for example, from the 7-day tier to the 30-day or 35-day tier), you can only restore data from the previous window until new backups accumulate. You can check the earliest available restore time using Azure PowerShell or Azure CLI. Any price changes from switching tiers take effect immediately.
 
 ## Migrate to continuous backup using Bicep
 

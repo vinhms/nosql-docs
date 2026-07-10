@@ -269,7 +269,7 @@ az cosmosdb update \
 
 In the portal for the given Azure Cosmos DB account, choose **Point in Time Restore** pane, select on change link next to Backup policy mode to show you the option of Continuous (35 days), Continuous (30 days), or Continuous (7 days). Choose the required target and select on **Save**.
 
-<!-- TODO: Refresh this screenshot to include the new Continuous (35 days) option. -->
+<!-- TODO (manual follow-up): Refresh this screenshot to show the new "Continuous (35 days)" option in the Change-tier dialog. -->
 :::image type="content" source="./media/migrate-continuous-backup/migrate-continuous-mode-tiers.png" lightbox="./media/migrate-continuous-backup/migrate-continuous-mode-tiers.png" alt-text="Screenshot of the dialog to select a tier of continuous backup mode.":::
 
 ### [Azure PowerShell](#tab/azure-powershell)

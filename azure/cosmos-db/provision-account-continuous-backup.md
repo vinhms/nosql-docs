@@ -31,7 +31,6 @@ This article explains how to provision an account with continuous backup and poi
 
 When creating a new Azure Cosmos DB account, in the **Backup policy** tab, choose **continuous** mode to enable the point in time restore functionality for the new account. With the point-in-time restore, data is restored to a new account, currently you can't restore to an existing account.
 
-<!-- TODO (manual follow-up): Refresh this screenshot to show the new "Continuous (35 days)" option on the Backup policy tab. -->
 :::image type="content" source="./media/provision-account-continuous-backup/provision-account-continuous-mode.png" alt-text="Provision an Azure Cosmos DB account with continuous backup configuration." border="true" lightbox="./media/provision-account-continuous-backup/provision-account-continuous-mode.png":::
 
 

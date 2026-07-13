@@ -15,7 +15,7 @@ appliesto:
 
 # Provision an Azure Cosmos DB account with continuous backup and point in time restore
 
-Azure Cosmos DB's point-in-time restore feature helps you to recover from an accidental change within a container, restore a deleted resource, or restore into any region where backups existed. The continuous backup mode allows you to restore to any point of time within the last 7, 30, or 35 days. How far back you can go in time depends on the tier of the continuous mode for the account.
+Azure Cosmos DB's point-in-time restore feature helps you recover from an accidental change within a container, restore a deleted resource, or restore data into any region where backups existed. The continuous backup mode allows you to restore to any point in time within the last 7, 30, or 35 days. How far back you can go depends on the tier of the continuous mode for the account.
 
 This article explains how to provision an account with continuous backup and point in time restore using [Azure portal](#provision-portal), [PowerShell](#provision-powershell), [CLI](#provision-cli) and [Resource Manager templates](#provision-arm-template).
 
@@ -36,7 +36,7 @@ When creating a new Azure Cosmos DB account, in the **Backup policy** tab, choos
 
 ## <a id="provision-powershell"></a>Provision using Azure PowerShell
 
-For PowerShell and CLI commands, the tier value is optional, if it isn't already provided. If not provided the account backup will be retained for 30 days. The tiers are represented by the values `Continuous7Days` or `Continuous30Days`.
+For PowerShell commands, the tier value is optional. If you don't provide it, the account backup is retained for 30 days. The tiers are represented by the values `Continuous7Days` or `Continuous30Days`.
 
 > [!NOTE]
 > PowerShell support for the `Continuous35Days` tier is coming soon. To provision the `Continuous35Days` tier now, use the [Azure CLI](#provision-cli) or an [Azure Resource Manager template](#provision-arm-template).
@@ -125,7 +125,7 @@ New-AzCosmosDBAccount `
 
 ## <a id="provision-cli"></a>Provision using Azure CLI
 
-For PowerShell and CLI commands, the tier value is optional. If you don't provide it, the account backup is retained for 30 days. The tiers are represented by `Continuous7Days`, `Continuous30Days`, or `Continuous35Days`.
+For CLI commands, the tier value is optional. If you don't provide it, the account backup is retained for 30 days. The tiers are represented by `Continuous7Days`, `Continuous30Days`, or `Continuous35Days`.
 
 Before provisioning the account, install Azure CLI with the following steps:
 

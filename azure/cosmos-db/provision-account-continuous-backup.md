@@ -4,7 +4,7 @@ description: Learn how to provision an account with continuous backup and point 
 author: kanshiG
 ms.service: azure-cosmos-db
 ms.topic: how-to
-ms.date: 07/09/2026
+ms.date: 07/13/2026
 ms.author: govindk
 ms.custom: devx-track-azurepowershell, devx-track-azurecli, build-2023
 ms.devlang: azurecli
@@ -15,7 +15,7 @@ appliesto:
 
 # Provision an Azure Cosmos DB account with continuous backup and point in time restore
 
-Azure Cosmos DB's point-in-time restore feature helps you to recover from an accidental change within a container, restore a deleted resource, or restore into any region where backups existed. The continuous backup mode allows you to restore to any point of time within the last 35, 30, or 7 days. How far back you can go in time depends on the tier of the continuous mode for the account.
+Azure Cosmos DB's point-in-time restore feature helps you to recover from an accidental change within a container, restore a deleted resource, or restore into any region where backups existed. The continuous backup mode allows you to restore to any point of time within the last 7, 30, or 35 days. How far back you can go in time depends on the tier of the continuous mode for the account.
 
 This article explains how to provision an account with continuous backup and point in time restore using [Azure portal](#provision-portal), [PowerShell](#provision-powershell), [CLI](#provision-cli) and [Resource Manager templates](#provision-arm-template).
 
@@ -37,10 +37,10 @@ When creating a new Azure Cosmos DB account, in the **Backup policy** tab, choos
 
 ## <a id="provision-powershell"></a>Provision using Azure PowerShell
 
-For PowerShell and CLI commands, the tier value is optional, if it isn't already provided. If not provided the account backup will be retained for 30 days. The tiers are represented by the values ``Continuous7Days`` or ``Continuous30Days``.
+For PowerShell and CLI commands, the tier value is optional, if it isn't already provided. If not provided the account backup will be retained for 30 days. The tiers are represented by the values `Continuous7Days` or `Continuous30Days`.
 
 > [!NOTE]
-> PowerShell support for the ``Continuous35Days`` tier is coming soon. To provision the ``Continuous35Days`` tier now, use the [Azure CLI](#provision-cli) or an [Azure Resource Manager template](#provision-arm-template).
+> PowerShell support for the `Continuous35Days` tier is coming soon. To provision the `Continuous35Days` tier now, use the [Azure CLI](#provision-cli) or an [Azure Resource Manager template](#provision-arm-template).
 
 1. Install the latest version of Azure PowerShell
 
@@ -126,7 +126,7 @@ New-AzCosmosDBAccount `
 
 ## <a id="provision-cli"></a>Provision using Azure CLI
 
-For PowerShell and CLI commands tier value is optional, if it isn't provided – the account backup will be retained for 30 days. The tiers are represented by ``Continuous7Days``, ``Continuous30Days``, or ``Continuous35Days``.
+For PowerShell and CLI commands, the tier value is optional. If you don't provide it, the account backup is retained for 30 days. The tiers are represented by `Continuous7Days`, `Continuous30Days`, or `Continuous35Days`.
 
 Before provisioning the account, install Azure CLI with the following steps:
 
@@ -152,7 +152,7 @@ az cosmosdb create \
 
 ```
 
-To provision the ``Continuous35Days`` tier (in preview), install the ``cosmosdb-preview`` Azure CLI extension (version 1.7.0 or later), then set ``--continuous-tier`` to ``Continuous35Days``:
+To provision the `Continuous35Days` tier (in preview), install the `cosmosdb-preview` Azure CLI extension (version 1.7.0 or later), and then set `--continuous-tier` to `Continuous35Days`:
 
 ```azurecli-interactive
 az cosmosdb create \
@@ -214,7 +214,7 @@ az cosmosdb create \
 
 ## <a id="provision-arm-template"></a>Provision using Resource Manager template
 
-You can use Azure Resource Manager templates to deploy an Azure Cosmos DB account with continuous mode. When defining the template to provision an account, include the `backupPolicy` and tier parameter as shown in the following example, tier can be ``Continuous7Days``, ``Continuous30Days``, or ``Continuous35Days`` :
+You can use Azure Resource Manager templates to deploy an Azure Cosmos DB account with continuous mode. When defining the template to provision an account, include the `backupPolicy` and tier parameter as shown in the following example. Tier can be `Continuous7Days`, `Continuous30Days`, or `Continuous35Days`.
 
 ```json
 {

@@ -4,7 +4,7 @@ description: Learn how Azure Cosmos DB's point-in-time restore feature helps to 
 author: kanshiG
 ms.service: azure-cosmos-db
 ms.topic: concept-article
-ms.date: 07/09/2026
+ms.date: 07/13/2026
 ms.author: govindk
 ms.custom: references_regions, cosmos-db-video, build-2023
 appliesto:
@@ -30,7 +30,7 @@ Azure Cosmos DB performs data backup in the background without consuming any ext
 Diagram illustrating how a container with a write region in West US and read regions in East and East US 2 is backed up. The container is backed up to a remote Azure Blob Storage account in each respective write and read region.
 :::image-end:::
 
-The time window available for restore (also known as retention period) is the lower value of the following three options: 35-day, 30-day, and 7-day.
+The time window available for restore (also known as retention period) is the lower value of the following three options: 7-day, 30-day, and 35-day.
 
 The selected option depends on the chosen tier of continuous backup. The point in time for restore can be any timestamp within the retention period no further back than the point when the resource was created. In strong consistency mode, backups taken in the write region are more up to date when compared to the read regions. Read regions can lag behind due to network or other transient issues. While doing restore, you can [get the latest restorable timestamp](get-latest-restore-timestamp.md) for a given resource in a specific region. Referring to latest restorable timestamp helps to confirm resource backups are up to the given timestamp, and can restore in that region.
 
@@ -120,11 +120,11 @@ In this scenario, if the restore timestamp provided is T3 for hub region as sour
 
 ## <a id="continuous-backup-pricing"></a>Pricing
 
-Azure Cosmos DB account with continuous 35-day or 30-day backup has an extra monthly charge to *store the backup*. The 35-day, 30-day, and 7-day tiers of continuous backup incur charges to *restore your data*. The restore cost is added every time the restore operation is initiated. If you configure an account with continuous backup but don't restore the data, only backup storage cost is included in your bill.
+Azure Cosmos DB accounts with continuous 30-day or 35-day backup have an extra monthly charge to *store the backup*. All tiers (7, 30, or 35 days) of continuous backup incur charges to *restore your data*. The restore cost is added every time the restore operation is initiated. If you configure an account with continuous backup but don't restore the data, only backup storage cost is included in your bill.
 
 The following example is based on the price for an Azure Cosmos DB account deployed in West US. The pricing and calculation can vary depending on the region you're using, see the [Azure Cosmos DB pricing page](https://azure.microsoft.com/pricing/details/cosmos-db/) for latest pricing information.
 
-* Accounts enabled with continuous backup policy at the 35-day or 30-day tier incur a monthly charge for backup storage. The 35-day and 30-day tiers are charged at the same rate, calculated as follows:
+* Accounts enabled with continuous backup policy at the 30-day or 35-day tier incur a monthly charge for backup storage. The 30-day and 35-day tiers are charged at the same rate, calculated as follows:
 
   $0.20/GB \* Data size in GB in account \* Number of regions
 
@@ -143,8 +143,8 @@ For example, if you have 1 TB of data in two regions:
 
 ## Compare the continuous backup tiers
 
-* The retention period is 35 days, 30 days, or 7 days, depending on the tier you choose.
-* The 35-day and 30-day tiers are charged for backup storage. The 7-day tier isn't charged for backup storage.
+* The retention period is 7 days, 30 days, or 35 days, depending on the tier you choose.
+* The 30-day and 35-day tiers are charged for backup storage. The 7-day tier isn't charged for backup storage.
 * Restore is always charged, regardless of the tier.
 
 ## Time to live
@@ -168,7 +168,7 @@ Currently the point-in-time restore functionality has the following limitations:
 
 * The restored account is created in the same region where your source account exists. You can't restore an account into a region where the source account didn't exist.
 
-* The restore window is 35 days for the continuous 35-day tier, 30 days for the continuous 30-day tier, and seven days for the continuous 7-day tier. These tiers can be switched, but the actual quantities (`7`, `30`, or `35`) can't be changed. Furthermore, if you switch to a shorter window, such as from the 35-day or 30-day tier to the 7-day tier, there's the potential for data loss on days beyond the new, shorter retention window.
+* The restore window is 7 days for the continuous 7-day tier, 30 days for the continuous 30-day tier, and 35 days for the continuous 35-day tier. You can switch between these tiers, but you can't change the actual quantities (`7`, `30`, or `35`). If you switch to a shorter window, such as from the 30-day or 35-day tier to the 7-day tier, you might lose data on days beyond the new, shorter retention window.
 
 * The backups aren't automatically geo-disaster resistant. Another region should be explicitly added for resiliency of the account and the backup.
 
